@@ -1,8 +1,12 @@
 
 
 cmake_minimum_required(VERSION 3.28)
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
+if(NOT DEFINED CMAKE_C_COMPILER)
+    set(CMAKE_C_COMPILER clang)
+endif()
+if(NOT DEFINED CMAKE_CXX_COMPILER)
+    set(CMAKE_CXX_COMPILER clang++)
+endif()
 project(aicpp LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
