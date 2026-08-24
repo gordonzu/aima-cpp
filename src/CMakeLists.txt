@@ -2,12 +2,7 @@
 
 set(BINARY ${CMAKE_PROJECT_NAME})
 
-set(SOURCES 
-    ReflexVacuumAgent.cpp 
-    TrivialVacuumEnvironment.cpp 
-)
-
-add_library(${BINARY}_lib STATIC ${SOURCES})
+add_library(${BINARY}_lib STATIC)
 target_compile_features(${BINARY}_lib PRIVATE cxx_std_20)
 
 # Register C++20 modules

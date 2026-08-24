@@ -1,11 +1,11 @@
 // Gordon Zuehlke on 8/27/18
 
-import rv_agent;
-import tv_environment;
-
 #include <string>
 #include <vector>
 #include "gtest/gtest.h"
+
+import rv_agent;
+import tv_environment;
 
 using namespace::testing;
 
