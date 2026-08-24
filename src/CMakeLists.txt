@@ -1,12 +1,6 @@
+add_library(aicpp_lib)
 
-
-set(BINARY ${CMAKE_PROJECT_NAME})
-
-add_library(${BINARY}_lib STATIC)
-target_compile_features(${BINARY}_lib PRIVATE cxx_std_20)
-
-# Register C++20 modules
-target_sources(${BINARY}_lib
+target_sources(aicpp_lib
     PUBLIC
         FILE_SET CXX_MODULES
         FILES
@@ -14,3 +8,4 @@ target_sources(${BINARY}_lib
             TrivialVacuumEnvironment.cpp
 )
 
+target_compile_features(aicpp_lib PUBLIC cxx_std_20)

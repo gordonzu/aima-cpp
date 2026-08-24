@@ -1,17 +1,10 @@
-
-
 include(GoogleTest)
 
-add_executable(${CMAKE_PROJECT_NAME}_run
+add_executable(aicpp_unit_tests
     test_agents.cpp
 )
 
-target_link_libraries(${CMAKE_PROJECT_NAME}_run
-    PRIVATE aicpp_lib GTest::gtest GTest::gtest_main
-)
+target_compile_features(aicpp_unit_tests PRIVATE cxx_std_20)
+target_link_libraries(aicpp_unit_tests PRIVATE aicpp_lib gtest gtest_main)
 
-target_compile_features(${CMAKE_PROJECT_NAME}_run PRIVATE cxx_std_20)
-
-enable_testing()
-gtest_discover_tests(${CMAKE_PROJECT_NAME}_run)
-
+gtest_discover_tests(aicpp_unit_tests)

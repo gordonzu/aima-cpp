@@ -1,17 +1,11 @@
+include(FetchContent)
 
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
 
-project(${CMAKE_PROJECT_NAME}_tests)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
 
-# Clone Google Test
-set(GOOGLETEST_DIR ${CMAKE_SOURCE_DIR}/tests/lib/googletest)
-if(NOT EXISTS ${GOOGLETEST_DIR})
-    find_package(Git REQUIRED)
-    execute_process(
-        COMMAND ${GIT_EXECUTABLE} clone https://github.com/google/googletest ${GOOGLETEST_DIR}
-    )
-endif()
-
-add_subdirectory(lib/googletest)
 add_subdirectory(unit_tests)
-
-
