@@ -1,18 +1,17 @@
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-set(BINARY unit_tests_run)
 
-# set(
-#     TEST_SOURCES 
-#     main.cpp
-#     vacuum_environment_test.cpp
-# )
+include(GoogleTest)
 
-file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false *.h *.cpp)
+add_executable(${CMAKE_PROJECT_NAME}_run
+    test_agents.cpp
+)
 
-add_executable(${BINARY} ${TEST_SOURCES})
+target_link_libraries(${CMAKE_PROJECT_NAME}_run
+    PRIVATE aicpp_lib GTest::gtest GTest::gtest_main
+)
 
-target_link_libraries(${BINARY} PUBLIC ${CMAKE_PROJECT_NAME}_lib gtest gtest_main pthread)
+target_compile_features(${CMAKE_PROJECT_NAME}_run PRIVATE cxx_std_20)
 
-add_test(NAME ${BINARY} COMMAND ${BINARY})
+enable_testing()
+gtest_discover_tests(${CMAKE_PROJECT_NAME}_run)
 

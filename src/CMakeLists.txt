@@ -1,23 +1,21 @@
+
+
 set(BINARY ${CMAKE_PROJECT_NAME})
 
-file(GLOB_RECURSE SOURCES LIST_DIRECTORIES true *.h *.cpp)
-
-set(CMAKE_CXX_STANDARD 17)
-
-set(SOURCES ${SOURCES})
-
-#add_executable(${BINARY}_run ${SOURCES})
+set(SOURCES 
+    ReflexVacuumAgent.cpp 
+    TrivialVacuumEnvironment.cpp 
+)
 
 add_library(${BINARY}_lib STATIC ${SOURCES})
+target_compile_features(${BINARY}_lib PRIVATE cxx_std_20)
 
+# Register C++20 modules
+target_sources(${BINARY}_lib
+    PUBLIC
+        FILE_SET CXX_MODULES
+        FILES
+            ReflexVacuumAgent.cpp
+            TrivialVacuumEnvironment.cpp
+)
 
-#[[if (EXISTS ${SOURCE_FILES})
-    # The library contains header and source files.
-    add_library(${CMAKE_PROJECT_NAME}_lib STATIC
-        ${SOURCE_FILES}
-        ${HEADER_FILES}
-    )
-else()
-    # The library only contains header files.
-    add_library(${CMAKE_PROJECT_NAME}_lib INTERFACE)
-endif()]]
