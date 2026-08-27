@@ -3,11 +3,14 @@
 import rv_agent;
 import tv_environment;
 
-TEST(AgentsModulesTest, ImportsCompileAndPass) {
-    ReflexVacuumAgent agent{};
-    TrivialVacuumEnvironment environment{};
+TEST(AgentsModulesTest, ImportsCompileAndPass) 
+{
+    auto x = ReflexVacuumAgent();
+    auto y = TrivialVacuumEnvironment();
 
-    (void)agent;
-    (void)environment;
+    (void)x;
+    (void)y;
     SUCCEED();
 }
+
+
