@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 
-import rv_agent;
-import tv_environment;
+import mod_agent;
+import mod_context;
 
 TEST(AgentsModulesTest, ImportsCompileAndPass) 
 {
-    auto x = ReflexVacuumAgent();
-    auto y = TrivialVacuumEnvironment();
+    auto x = Agent();
+    auto y = Context();
 
     (void)x;
     (void)y;
