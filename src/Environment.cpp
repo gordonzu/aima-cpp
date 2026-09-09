@@ -12,7 +12,7 @@ public:
     Environment() = default;
 
     template <typename F>
-    static Environment create(F&& f) requires std::invocable<void, F&> {
+    static Environment create(F&& f) requires std::invocable<F&> {
         return Environment(std::forward<F>(f));
     }
 
@@ -38,3 +38,7 @@ private:
 
 
 };
+
+export void barking_environment() {
+    std::cout << "Bark! Bark!" << '\n';
+}

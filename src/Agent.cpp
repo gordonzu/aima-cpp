@@ -3,6 +3,8 @@ module;
 #include <concepts>
 #include <functional>
 #include <stdexcept>
+#include <iostream>
+#include <utility>
 
 export module mod_agent;
 
@@ -29,5 +31,10 @@ private:
 
     std::function<void()> p_;
 };
+
+export void quack_agent() {
+    std::cout << "Quack! Quack!" << '\n';
+}
+
 
 
