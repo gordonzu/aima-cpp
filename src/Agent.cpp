@@ -1,10 +1,8 @@
 module;
 
 #include <concepts>
-#include <iostream>
 #include <functional>
 #include <stdexcept>
-#include <vector>
 
 export module mod_agent;
 
