@@ -2,26 +2,23 @@
 set -uo pipefail
 
 WATCH_DIR="$HOME/.local/src/c++/aima-cpp"
-FORMAT=$'\033[1;33m%w%f\033[0m written'
+FORMAT=$'\033[1;33m%w%f\033[0m changed'
 
-# Run once at startup
-(
-  cd "$WATCH_DIR"
-  ./mm
-)
-
-# Watch recursively for common file changes
-while inotifywait -r \
-  -e modify,create,delete,move,attrib,close_write \
-  --format "$FORMAT" \
-  "$WATCH_DIR"
-do
+run_build() {
   (
     cd "$WATCH_DIR"
-    ./mm
+    ./mm || echo "Build failed (waiting for next change)..."
   )
+}
+
+run_build
+
+while inotifywait -r \
+  -e close_write,create,delete,move \
+  --format "$FORMAT" \
+  --exclude '(^|/)\.git(/|$)|(^|/)build(/|$)|(^|/)compile_commands\.json$|(^|/)\.cache(/|$)' \
+  "$WATCH_DIR"
+do
+  run_build
 done
-
-
-
 
