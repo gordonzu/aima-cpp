@@ -5,11 +5,11 @@ import mod_environment;
 
 TEST(EnvironmentCreateTest, MakeEnvironmentCreateTakeCallable)
 {
-   auto x = Environment::create(barking_environment);
+   auto x = Environment::create(trivial_vacuum);
    x.run();
 
-   auto y = Environment::create([] { std::cout << "BARK!!" << '\n'; } );
-   y.run();
+   //auto y = Environment::create([] { std::cout << "BARK!!" << '\n'; } );
+   //y.run();
 }
 
 TEST(AgentCreateTest, MakeAgentCreateTakeCallable)

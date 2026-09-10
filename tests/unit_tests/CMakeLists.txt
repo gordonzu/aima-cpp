@@ -1,10 +1,10 @@
 include(GoogleTest)
 
-add_executable(aicpp_unit_tests
+add_executable(aima-cpp_unit_tests
     test_agents.cpp
 )
 
-target_compile_features(aicpp_unit_tests PRIVATE cxx_std_20)
-target_link_libraries(aicpp_unit_tests PRIVATE aicpp_lib gtest gtest_main)
+target_compile_features(aima-cpp_unit_tests PRIVATE cxx_std_20)
+target_link_libraries(aima-cpp_unit_tests PRIVATE aima-cpp_lib gtest gtest_main)
 
-gtest_discover_tests(aicpp_unit_tests)
+gtest_discover_tests(aima-cpp_unit_tests)

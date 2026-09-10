@@ -36,5 +36,13 @@ export void quack_agent() {
     std::cout << "Quack! Quack!" << '\n';
 }
 
+export void test_a() {
+    std::cout << "Test_a!" << '\n';
+}
+
+export void test_b() {
+    std::cout << "Test_b!" << '\n';
+}
+
 
 
