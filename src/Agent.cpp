@@ -5,22 +5,28 @@ module;
 #include <stdexcept>
 #include <iostream>
 #include <utility>
+#include <concepts>
+#include <any>
 
 export module mod_agent;
 
 export class Agent {
 public:
+    using Fn = std::function<std::string(std::any)>;
+
     Agent() = default;
 
     template <typename F>
-    static Agent create(F&& f) requires std::invocable<F&> {
+    static Agent create(F&& f) requires std::constructible_from<Fn, F> {
         return Agent(std::forward<F>(f));
     }
 
-    void run() const { p_(); } 
+    std::string run_agent_program(std::any arg) const { 
+      return p_(std::move(arg));
+    } 
 
 private:
-    explicit Agent(std::function<void()> p) : p_(std::move(p)) {
+    explicit Agent(Fn p) : p_(std::move(p)) {
       if (!p_) throw std::invalid_argument("Agent requires a callable");
     }
 
@@ -29,7 +35,7 @@ private:
       if (!p_) throw std::invalid_argument("Agent requires a callable");
     }
 
-    std::function<void()> p_;
+    Fn p_;
 };
 
 export void quack_agent() {

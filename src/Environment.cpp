@@ -1,5 +1,9 @@
 module;
 
+#include <any>
+#include <concepts>
+#include <stdexcept>
+#include <utility>
 #include <iostream>
 #include <vector>
 #include <functional>
@@ -18,7 +22,10 @@ public:
 
     void run() {
         p_(*this);
-        for (const auto& agent : agents_) agent.run(); 
+        for (const auto& agent : agents_) { 
+            std::string result = agent.run_agent_program(x);
+            std::cout << result << '\n';
+        }
     }
 
     void add_agent(Agent a) { agents_.push_back(std::move(a)); }
