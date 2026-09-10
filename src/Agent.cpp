@@ -12,21 +12,33 @@ export module mod_agent;
 
 export class Agent {
 public:
-    using Fn = std::function<std::string(std::any)>;
+    using Percept = std::any;
+    using Program = std::function<std::string(std::any)>;
 
     Agent() = default;
 
     template <typename F>
-    static Agent create(F&& f) requires std::constructible_from<Fn, F> {
+    static Agent create(F&& f) requires std::constructible_from<Program, F> {
         return Agent(std::forward<F>(f));
     }
 
-    std::string run_agent_program(std::any arg) const { 
-      return p_(std::move(arg));
+    std::string run() const {
+        if (!has_percept_) throw std::logic_error("Agent percept not set");
+        return run(percept_);
     } 
 
+    std::string run(Percept p) const {
+        if (!p_) throw std::logic_error("Agent program not set");
+        return p_(std::move(p));
+    }
+
+    void set_percept(Percept p) {
+        percept_ = std::move(p);
+        has_percept_ = true;
+    }
+
 private:
-    explicit Agent(Fn p) : p_(std::move(p)) {
+    explicit Agent(Program p) : p_(std::move(p)) {
       if (!p_) throw std::invalid_argument("Agent requires a callable");
     }
 
@@ -35,7 +47,9 @@ private:
       if (!p_) throw std::invalid_argument("Agent requires a callable");
     }
 
-    Fn p_;
+    Program p_;
+    Percept percept_{};
+    bool has_percept_ = false;
 };
 
 export void quack_agent() {

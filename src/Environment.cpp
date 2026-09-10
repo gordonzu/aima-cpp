@@ -23,7 +23,7 @@ public:
     void run() {
         p_(*this);
         for (const auto& agent : agents_) { 
-            std::string result = agent.run_agent_program(x);
+            std::string result = agent.run(x);
             std::cout << result << '\n';
         }
     }

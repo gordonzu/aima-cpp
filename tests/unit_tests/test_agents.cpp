@@ -26,9 +26,9 @@ TEST(AgentCreateTest, MakeAgentCreateTakeCallable)
     });
 
 
-    x.run_agent_program(42);
-    x.run_agent_program(std::string("Hello"));
-    x.run_agent_program(3.14);
+    x.run(42);
+    x.run(std::string("Hello"));
+    x.run(3.14);
 }
 
 TEST(AgentsModulesTest, ImportsCompileAndPass) 
