@@ -20,14 +20,14 @@ public:
         return Environment(std::forward<F>(f));
     }
 
-    void run() {
+    /*void run() {
         p_(*this);
         for (const auto& agent : agents_) { 
             std::string result = agent.run(x);
             std::cout << result << '\n';
         }
     }
-
+    */
     void add_agent(Agent a) { agents_.push_back(std::move(a)); }
     void increment() { x++; std::cout << x << '\n'; }
 

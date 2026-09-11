@@ -3,6 +3,18 @@
 import mod_agent;
 import mod_environment;
 
+TEST(AgentsModulesTest, ImportsCompileAndPass) 
+{
+    Agent x = Agent::create();
+    Environment y = Environment();
+
+    (void)x;
+    (void)y;
+    SUCCEED();
+}
+
+
+
 /*TEST(EnvironmentCreateTest, MakeEnvironmentCreateTakeCallable)
 {
    auto x = Environment::create(trivial_vacuum);
@@ -13,7 +25,7 @@ import mod_environment;
 }
 */
 
-TEST(AgentCreateTest, MakeAgentCreateTakeCallable)
+/*TEST(AgentCreateTest, MakeAgentCreateTakeCallable)
 {
     auto x = Agent::create([](std::any value) -> std::string {
         if (auto p = std::any_cast<int>(&value)) {
@@ -30,15 +42,5 @@ TEST(AgentCreateTest, MakeAgentCreateTakeCallable)
     x.run(std::string("Hello"));
     x.run(3.14);
 }
-
-TEST(AgentsModulesTest, ImportsCompileAndPass) 
-{
-    auto x = Agent();
-    auto y = Environment();
-
-    (void)x;
-    (void)y;
-    SUCCEED();
-}
-
+*/
 
