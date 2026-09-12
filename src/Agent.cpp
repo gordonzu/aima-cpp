@@ -1,56 +1,78 @@
 module;
 
 #include <iostream>
-#include <concepts>
 #include <functional>
-#include <stdexcept>
 #include <iostream>
 #include <utility>
-#include <concepts>
 #include <string>
+#include <random>
+#include <typeinfo>
 #include <any>
 
 export module mod_agent;
 
 export class Agent {
 public:
-    using Fn = std::function<std::string(std::any)>;
+    using Percept = std::any;   
+    using Action  = std::string;
+    using Fn = std::function<Action(const Percept&)>;
 
-    Agent() = delete;
+    bool alive = true;
+    bool bump = false;
+    std::vector<std::string> holding{};
+    int performance = 0;
 
-    static Agent create(Fn program = nullptr) {
-        return Agent(std::move(program));
+    explicit Agent(Fn f = nullptr) : f_(std::move(f)) {
+        if (!f_) {
+            std::cout << "Can't find a valid f for Agent, loading default.\n";
+            f_ = [](const Percept&) -> Action {
+                std::cout << "Percept=<...>; action? ";
+                Action action;
+                std::getline(std::cin, action);
+                return action;
+            };
+        }
     }
-    
-    std::string whoami() const {
-        return "<" + std::string(typeid(*this).name()) + ">";
-    }
 
-    bool is_alive() const {
-        return alive_;
+    Action run(const Percept& percept) const {
+        return f_(percept);
     }
 
 private:
-    explicit Agent(Fn p) {
-        if (p == nullptr) {
-            std::cout << "No valid program for " << this->whoami() << ", loading default." << '\n';
-
-            this->p_ = [](std::any percept) -> std::string {
-                std::string action;
-                std::cout << "Percept=" << "percept_value" << "; action? ";
-                std::getline(std::cin, action);
-                return action;
-            }; 
-        } else {
-              this->p_ = p;
-        }
-    }
-    
-    Fn p_;
-    bool alive_ = true;
-    bool bump_ = false;
-    int performance_ = 0;
-    std::vector<Agent> holding_;
+    Fn f_;
 };
+
+Agent::Fn random_agent_program(const std::vector<std::string>& actions) {
+    return [actions](std::any percept) -> std::string {
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(0, actions.size() - 1);
+        return actions[dis(gen)];
+    };
+}
+
+export Agent random_vacuum_agent() {
+    return Agent(random_agent_program({"Right", "Left", "Suck", "NoOp"}));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

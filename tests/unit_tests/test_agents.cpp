@@ -3,10 +3,19 @@
 import mod_agent;
 import mod_environment;
 
-TEST(AgentsModulesTest, ImportsCompileAndPass) 
+TEST(AgentTest, RandomVacuumAgent)
 {
-    Agent x = Agent::create();
-    Environment y = Environment();
+    auto x = random_vacuum_agent();
+    auto y = trivial_vacuum_environment();
+    y.add_object(x);
+
+    SUCCEED();
+}
+
+TEST(AgentTest, CreateDefaults) 
+{
+    auto x = Agent();
+    auto y = Environment();
 
     (void)x;
     (void)y;
