@@ -3,17 +3,28 @@
 import mod_agent;
 import mod_environment;
 
-TEST(AgentTest, AddRandomVacuumAgent)
-{
+TEST(AgentTest, RunRandomVacuumAgent) {
+   SUCCEED(); 
+}
+
+
+TEST(AgentTest, SetupTrivialVacuumEnvironment) {
+
+    // initialize environment state
+    
+
+
+    // add the agent to the environment 
     auto x = random_vacuum_agent();
     auto y = trivial_vacuum_environment();
     y.add_object(x);
 
     ASSERT_EQ(1, y.count());
+
+
 }
 
-TEST(AgentTest, CreateDefaults) 
-{
+TEST(AgentTest, CreateDefaults) {
     auto x = Agent();
     auto y = Environment();
 

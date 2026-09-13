@@ -2,6 +2,7 @@ module;
 
 #include <any>
 #include <concepts>
+#include <random>
 #include <stdexcept>
 #include <utility>
 #include <iostream>
@@ -48,7 +49,17 @@ private:
 };
 
 export Environment trivial_vacuum_environment() {
-   return Environment(); 
+    using Location = std::pair<int, int>;
+    constexpr Location loc_A(0, 0);
+    constexpr Location loc_B(1, 0);
+
+    auto default_location = [loc_A, loc_B]()-> Location {
+        static thread_local std::mt19937 gen(std::random_device{}());
+        std::uniform_int_distribution<int> d(0, 1);
+        return d(gen) == 0 ? loc_A : loc_B;
+    };
+  
+    return Environment(); 
 }
 
 /*export void trivial_vacuum(Environment& env ) {
@@ -59,5 +70,32 @@ export Environment trivial_vacuum_environment() {
 /*export void barking_environment() {
     std::cout << "Bark! Bark!" << '\n';
 }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
