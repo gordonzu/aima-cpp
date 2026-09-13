@@ -3,13 +3,13 @@
 import mod_agent;
 import mod_environment;
 
-TEST(AgentTest, RandomVacuumAgent)
+TEST(AgentTest, AddRandomVacuumAgent)
 {
     auto x = random_vacuum_agent();
     auto y = trivial_vacuum_environment();
     y.add_object(x);
 
-    SUCCEED();
+    ASSERT_EQ(1, y.count());
 }
 
 TEST(AgentTest, CreateDefaults) 

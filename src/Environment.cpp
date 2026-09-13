@@ -38,6 +38,7 @@ public:
 
     void add_object(Object x) { objects_.push_back(std::move(x)); }
     void increment() { x++; std::cout << x << '\n'; }
+    int count() const { return objects_.size(); }
 
 private:
     std::vector<Object> objects_;
